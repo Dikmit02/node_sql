@@ -1,5 +1,6 @@
 const express=require('express')
 const app =express()
+const db=require('./db')
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -8,13 +9,39 @@ app.use(express.urlencoded({extended:true}))
 app.set("view engine","hbs")
 
 app.get('/',(req,res)=>{
-    res.render('person',{
-        persons:[
-            {name:'abc',age:12,city:'delhi'},
-        {name:'kanika',age:22,city:'banga'}
-        ]
-    })
+   db.getAllUsers()
+   .then((persons)=>{
+    res.render('person',{persons})
+   })
+   .catch((err)=>{
+       res.send(err)
+   })
 })
+app.get('/add',(req,res)=>{
+    res.render('person_add')
+})
+
+app.post('/add',(req,res)=>{
+      
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.listen(8082,()=>{
     console.log("server started !!! ")
