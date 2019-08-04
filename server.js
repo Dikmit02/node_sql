@@ -22,6 +22,13 @@ app.get('/add',(req,res)=>{
 })
 
 app.post('/add',(req,res)=>{
+    db.addNewPerson(req.body.name,req.body.age,req.body.city)
+    .then(()=>{
+        res.redirect( '/')
+    })
+    .catch((err)=>{
+        res.send(err)
+    })
       
 })
 
